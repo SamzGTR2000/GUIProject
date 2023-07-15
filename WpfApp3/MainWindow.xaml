@@ -1,0 +1,120 @@
+﻿<Window x:Class="WpfApp3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp3"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="MainWindow" Height="Auto" Width="950">
+    <!--EG/2020/4176-->
+    <Window.DataContext>
+        <local:MainWindowVM/>
+    </Window.DataContext>
+    <Grid>
+
+        <StackPanel Height="80" VerticalAlignment="Bottom" Background="DarkCyan" Orientation="Horizontal" Width="950">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/Model/Images/Logo.png" Width="60" Height="60" Margin="10,10,0,10"/>
+                <StackPanel Grid.Column="1" Orientation="Vertical">
+                    <TextBlock Text="STUDENT REGISTRATION SHEET" Margin="20,5,0,0" VerticalAlignment="Center" FontSize="20" />
+                    <TextBlock Text="FACULTY OF ENGINEERING" Margin="20,2,0,0" VerticalAlignment="Center" FontSize="10"/>
+                    <TextBlock Text="UNIVERSITY OF RUHUNA" Margin="20,0,0,0" VerticalAlignment="Center" FontSize="10"/>
+                    <TextBlock Text="HAPUGALA, GALLE, SRI LANKA" Margin="20,0,0,0" VerticalAlignment="Center" FontSize="10"/>
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="150, 0, 0, 0">
+                    <Button Content="Add Student" Command="{Binding AddStudentCommand}" Width="100" FontSize="10"
+                    Padding="10" Margin="0, 10, 10, 10">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="10"></Setter>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+                    <Button Content="Clear" Command="{Binding DeleteCommand}" Width="100" FontSize="10"
+                    Padding="10" Margin="0, 10, 10, 10">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="10"></Setter>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel>
+                
+            </StackPanel>
+        </StackPanel>
+        
+        
+            
+        
+        <StackPanel Margin="0,0,0,85" Background="Cyan" Orientation="Horizontal" HorizontalAlignment="Stretch" Height="Auto">
+            <ListView Background="Cyan" ItemsSource="{Binding Users,UpdateSourceTrigger=PropertyChanged}"
+                     SelectedItem="{Binding SelectedUser,UpdateSourceTrigger=PropertyChanged}" Width="Auto"
+                      HorizontalAlignment="Left" >
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Width="1000"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate >
+                    <DataTemplate>
+                        <Border BorderBrush="Black" BorderThickness="3"
+                                Padding="0.1" CornerRadius="10">
+                            <StackPanel Width="300"  Background="LightCyan" Orientation="Horizontal" >
+
+                                <Image Width="100" Source="{Binding Image}" />
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="First Name :" Margin="5"/>
+                                        <TextBlock Text="{Binding FirstName,UpdateSourceTrigger=PropertyChanged}" Margin="5"  />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Last Name :" Margin="5"/>
+                                        <TextBlock Text="{Binding LastName,UpdateSourceTrigger=PropertyChanged}" Margin="5"  />
+                                    </StackPanel>
+                                    
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Date of Birth :" Margin="5"/>
+                                        <TextBlock Text="{Binding DateOfBirth,UpdateSourceTrigger=PropertyChanged}" Margin="5"  />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="GPA :" Margin="5"/>
+                                        <TextBlock Text="{Binding GPA,UpdateSourceTrigger=PropertyChanged}" Margin="5"  />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Content="Remove" Width="75" Margin="5" Padding="5" FontSize="10"
+                                                 Command="{Binding DataContext.DeleteUserCommand, RelativeSource={RelativeSource AncestorType=Window}}" 
+                                                 CommandParameter="{Binding}">
+                                            <Button.Resources>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="CornerRadius" Value="10"></Setter>
+                                                </Style>
+                                            </Button.Resources>
+                                        </Button>
+                                        <Button Content="Edit" Width="75" Margin="5" Padding="5" FontSize="10"
+                                                Command="{Binding DataContext.EditUserCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                CommandParameter="{Binding}">
+                                            <Button.Resources>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="CornerRadius" Value="10"></Setter>
+                                                </Style>
+                                            </Button.Resources>
+                                        </Button>
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+
+                        </Border>
+                    </DataTemplate>
+
+                </ListView.ItemTemplate>
+            </ListView>
+            
+        </StackPanel>
+
+    </Grid>
+</Window>
